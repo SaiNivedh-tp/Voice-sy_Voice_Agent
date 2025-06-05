@@ -1,6 +1,6 @@
 # Voice'sy
 
-### Barbershops and dental clinics often rely on manual or web-based booking systems, resulting in lost appointments due to missed calls or delays in responses. These establishments usually use booking applications like Fresha, Calendly, or Zocdoc, which expose APIs for scheduling,rescheduling, and canceling appointments.\
+ Barbershops and dental clinics often rely on manual or web-based booking systems, resulting in lost appointments due to missed calls or delays in responses. These establishments usually use booking applications like Fresha, Calendly, or Zocdoc, which expose APIs for scheduling,rescheduling, and canceling appointments.
 
 
 <br>
