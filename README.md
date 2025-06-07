@@ -29,5 +29,5 @@
 
 ### Endpoints
 
-![app_py](https://github.com/user-attachments/assets/51100123-da53-4114-8cd8-8bc537ce8a8d)
+![app_py](https://github.com/user-attachments/assets/e7f3b6de-5119-4548-ad83-0470ba7fcf94)
 
