@@ -29,5 +29,19 @@
 
 ### Endpoints
 
-![app_py](https://github.com/user-attachments/assets/e7f3b6de-5119-4548-ad83-0470ba7fcf94)
-
+```
+    - POST /users/register"
+    - POST /users/login"
+    - GET /users/profile"
+    - GET /providers"
+    - GET /providers/<id>"
+    - GET /services"
+    - GET /providers/<id>/availability"
+    - POST /appointments"
+    - GET /appointments"
+    - POST /appointments/<id>/cancel"
+    - POST /appointments/<id>/reschedule"
+    - GET /search"
+    - GET /slots/suggest"
+    - POST /appointments/<id>/send-reminder"
+```
