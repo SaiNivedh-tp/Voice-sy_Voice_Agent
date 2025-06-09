@@ -424,6 +424,66 @@ def reschedule_appointment(appointment_id):
     
     return jsonify({'appointment': appointment})
 
+@app.route('/slots/suggest', methods=['GET'])
+def suggest_slots():
+    provider_id = request.args.get('provider_id')
+    service_id = request.args.get('service_id')
+    date_str = request.args.get('date')  # format: YYYY-MM-DD
+
+    if not provider_id or provider_id not in providers:
+        return jsonify({'error': 'Valid provider_id required'}), 400
+
+    if not service_id or service_id not in services:
+        return jsonify({'error': 'Valid service_id required'}), 400
+
+    if not date_str:
+        date_str = datetime.now().strftime('%Y-%m-%d')
+
+    try:
+        date = datetime.strptime(date_str, '%Y-%m-%d').date()
+    except ValueError:
+        return jsonify({'error': 'Invalid date format. Use YYYY-MM-DD'}), 400
+
+    duration = services[service_id]['duration']
+    provider_slots = availability.get(provider_id, [])
+
+    suggested = []
+    for slot in provider_slots:
+        slot_time = datetime.fromisoformat(slot['datetime'])
+        if slot['available'] and slot_time.date() == date:
+            suggested.append(slot['datetime'])
+        if len(suggested) >= 5:
+            break
+
+    return jsonify({
+        'provider_id': provider_id,
+        'service_id': service_id,
+        'suggested_slots': suggested
+    })
+
+@app.route('/appointments/<appointment_id>/send-reminder', methods=['POST'])
+def send_reminder(appointment_id):
+    appointment = appointments.get(appointment_id)
+    if not appointment:
+        return jsonify({'error': 'Appointment not found'}), 404
+
+    user = users.get(appointment['user_id'], {})
+    service = services.get(appointment['service_id'], {})
+    provider = providers.get(appointment['provider_id'], {})
+
+    reminder_text = (
+        f"Hello {user.get('name', 'Guest')}, this is a reminder for your "
+        f"{service.get('name', 'appointment')} with {provider.get('name', 'the provider')} "
+        f"at {appointment['datetime']}."
+    )
+
+    print(f"[VOICE REMINDER]: To {user.get('phone')} - {reminder_text}")
+
+    return jsonify({
+        'status': 'Reminder simulated',
+        'reminder': reminder_text
+    })
+
 # Search route
 @app.route('/search', methods=['GET'])
 def search():
@@ -486,5 +546,18 @@ if __name__ == '__main__':
     print("- POST /appointments/<id>/cancel")
     print("- POST /appointments/<id>/reschedule")
     print("- GET /search")
+    print("- GET /slots/suggest")
+    print("- POST /appointments/<id>/send-reminder")    
     
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+
+
+
+
+
+
+
+
+
+
