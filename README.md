@@ -29,22 +29,5 @@
 
 ### Endpoints
 
-```
-GET     /health  
-POST    /users/register  
-POST    /users/login  
-GET     /users/profile  
-GET     /providers  
-GET     /providers/<provider_id>  
-GET     /providers/<provider_id>/availability  
-GET     /services  
-GET     /services/<service_id>  
-POST    /appointments  
-GET     /appointments  
-GET     /appointments/<appointment_id>  
-POST    /appointments/<appointment_id>/cancel  
-POST    /appointments/<appointment_id>/reschedule  
-GET     /search  
+![app_py](https://github.com/user-attachments/assets/e7f3b6de-5119-4548-ad83-0470ba7fcf94)
 
-
-```
