@@ -1,0 +1,128 @@
+[
+    {
+      "query": "Hi, I need to book an appointment with a massage therapist.",
+      "expected_tool_use": [],
+      "reference": "Sure, I can help you find a massage therapist and book an appointment."
+    },
+    {
+      "query": "Can you find a massage therapist in Delhi?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers",
+          "tool_input": {
+            "specialty": "massage",
+            "city": "Delhi"
+          }
+        }
+      ],
+      "reference": "I've found several massage therapists in Delhi."
+    },
+    {
+      "query": "Tell me about the first therapist you found.",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider_id>",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Here are the details for the first massage therapist."
+    },
+    {
+      "query": "What types of massages do they offer?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /services",
+          "tool_input": {
+            "provider_id": "<provider_id>"
+          }
+        }
+      ],
+      "reference": "They offer deep tissue massage and Swedish massage."
+    },
+    {
+      "query": "I want a deep tissue massage. What's the earliest slot available next Wednesday?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider_id>/availability",
+          "tool_input": {
+            "date": "2025-06-18"
+          }
+        }
+      ],
+      "reference": "Here are the available time slots for next Wednesday."
+    },
+    {
+      "query": "Book the 10 AM slot for the deep tissue massage.",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments",
+          "tool_input": {
+            "provider_id": "<provider_id>",
+            "service_id": "<service_id>",
+            "datetime": "2025-06-18T10:00:00",
+            "notes": "Deep tissue massage appointment"
+          }
+        }
+      ],
+      "reference": "Your 10 AM appointment on June 18 is confirmed."
+    },
+    {
+      "query": "Can you set a reminder for the day before?",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/send-reminder",
+          "tool_input": {}
+        }
+      ],
+      "reference": "A reminder will be sent the day before your appointment."
+    },
+    {
+      "query": "Actually, can you change it to Thursday at 3 PM?",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/reschedule",
+          "tool_input": {
+            "datetime": "2025-06-19T15:00:00"
+          }
+        }
+      ],
+      "reference": "Your appointment has been rescheduled to 3 PM on June 19."
+    },
+    {
+      "query": "I need to cancel the appointment now.",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/cancel",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Your appointment has been cancelled."
+    },
+    {
+      "query": "Now, find me wellness centers in Mumbai.",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /search",
+          "tool_input": {
+            "q": "wellness",
+            "location": "Mumbai"
+          }
+        }
+      ],
+      "reference": "Here are some wellness centers in Mumbai."
+    },
+    {
+      "query": "Suggest good time slots for a yoga session this Saturday.",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /slots/suggest",
+          "tool_input": {
+            "provider_id": "<provider_id>",
+            "service_id": "<service_id>",
+            "date": "2025-06-21"
+          }
+        }
+      ],
+      "reference": "Here are the top 5 available slots for a yoga session this Saturday."
+    }
+]
