@@ -1,0 +1,90 @@
+[
+    {
+      "query": "Hey, I’m having some pain in my tooth. Can you help me book a dentist?",
+      "expected_tool_use": [],
+      "reference": "Of course! I can help you with that. Which city are you in currently?"
+    },
+    {
+      "query": "I’m in Karur. Can you find available dentists nearby?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers",
+          "tool_input": {
+            "specialty": "dentist",
+            "city": "Karur"
+          }
+        }
+      ],
+      "reference": "Here are a few dental clinics available in Karur."
+    },
+    {
+      "query": "Can you tell me more about the first one you found?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider_id>",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Sure, the first clinic is Dr. Aravindh’s practice. She’s highly rated and specializes in dental procedures including root canals and extractions."
+    },
+    {
+      "query": "What kind of dental treatments do they offer for tooth pain?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /services",
+          "tool_input": {
+            "provider_id": "<provider_id>"
+          }
+        }
+      ],
+      "reference": "They offer services like dental consultations, root canal therapy, and cavity fillings. For pain, a consultation or a root canal might be suggested based on the issue."
+    },
+    {
+      "query": "Are there any ongoing offers or discounts on treatments?",
+      "expected_tool_use": [],
+      "reference": "There’s currently a 15% discount on root canal treatments and free consultations for new patients."
+    },
+    {
+      "query": "Okay, I’d like to book a consultation first. What’s the earliest I can get one this week?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider_id>/availability",
+          "tool_input": {
+            "date": "2025-06-12"
+          }
+        }
+      ],
+      "reference": "Here are the earliest available consultation slots for this week."
+    },
+    {
+      "query": "Book the 10:30 AM slot for Thursday.",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments",
+          "tool_input": {
+            "provider_id": "<provider_id>",
+            "service_id": "<service_id>",
+            "datetime": "2025-06-12T10:30:00",
+            "notes": "Tooth pain consultation"
+          }
+        }
+      ],
+      "reference": "You’re booked for a dental consultation at 10:30 AM on Thursday. Don’t forget to mention the offer at the clinic!"
+    },
+    {
+      "query": "Can you send me a reminder a day before?",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/send-reminder",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Absolutely. You’ll receive a reminder a day before the appointment."
+    },
+    {
+      "query": "Thanks. If the pain gets worse, can I reschedule it for an earlier slot?",
+      "expected_tool_use": [],
+      "reference": "Yes, you can reschedule anytime if needed. Just let me know!"
+    }
+  ]
+  
