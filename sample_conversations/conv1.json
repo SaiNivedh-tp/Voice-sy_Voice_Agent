@@ -26,7 +26,7 @@
           "tool_input": {}
         }
       ],
-      "reference": "Here are the details for the first dermatologist."
+      "reference": "Here are the details for the first dermatologist. Name: Dr. Skin Expert, Location: MG Road, Bangalore, Rating: 4.5 stars."
     },
     {
       "query": "What services do they offer?",
