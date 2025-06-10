@@ -27,6 +27,12 @@
 - Remember returning customers' preferences
 
 
+## High level workflow
+
+
+![image](https://github.com/user-attachments/assets/857769c6-1bbd-45f3-80da-55dc22bdcada)
+
+
 ### Endpoints
 
 ```
