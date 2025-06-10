@@ -1,0 +1,69 @@
+[
+    {
+      "query": "Hi, I’d like to book a massage at Luxury Spa & Wellness. Can you help?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers",
+          "tool_input": {
+            "specialty": "Beauty & Wellness",
+            "city": "Los Angeles"
+          }
+        }
+      ],
+      "reference": "Sure, I found Luxury Spa & Wellness in Los Angeles. They offer massage and facial treatments. Would you like to proceed with booking a massage?"
+    },
+    {
+      "query": "Yes, what types of massages do they have?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /services",
+          "tool_input": {
+            "provider_id": "<provider2_id>"
+          }
+        }
+      ],
+      "reference": "They offer a Deep Tissue Massage, which is a 60-minute therapeutic massage for muscle tension, and other treatments like an Anti-Aging Facial. Would you like to book the Deep Tissue Massage?"
+    },
+    {
+      "query": "Yeah, the Deep Tissue Massage sounds good. What’s the earliest slot available this week?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider2_id>/availability",
+          "tool_input": {
+            "date": "2025-06-11"
+          }
+        }
+      ],
+      "reference": "Let me check the availability for Deep Tissue Massage this week. The earliest slots are on Wednesday, June 11th, at 9:00 AM and 10:30 AM. Which one works for you?"
+    },
+    {
+      "query": "Can you book the 9:00 AM slot on Wednesday for me?",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments",
+          "tool_input": {
+            "provider_id": "<provider2_id>",
+            "service_id": "<service2_id>",
+            "datetime": "2025-06-11T09:00:00",
+            "notes": "Deep Tissue Massage booking"
+          }
+        }
+      ],
+      "reference": "Great, I’ve booked your Deep Tissue Massage at Luxury Spa & Wellness for Wednesday, June 11th at 9:00 AM. You’re all set!"
+    },
+    {
+      "query": "Can you send a reminder the day before the appointment?",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/send-reminder",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Absolutely, I’ll set up a reminder to be sent to you on Tuesday, June 10th, for your appointment."
+    },
+    {
+      "query": "What if I need to change the time later?",
+      "expected_tool_use": [],
+      "reference": "No problem! You can reschedule by letting me know the new time you’d prefer, and I’ll check availability to update your appointment."
+    }
+]
