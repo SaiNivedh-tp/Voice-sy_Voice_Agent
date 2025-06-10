@@ -1,0 +1,99 @@
+[
+    {
+      "query": "Hi, I need a hairstylist for my wedding prep next week.",
+      "expected_tool_use": [],
+      "reference": "Sure! I can help you book a hairstylist for your big day. Do you have a city in mind?"
+    },
+    {
+      "query": "Yes, I’m in Trichy. Can you check for hair stylists available there?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers",
+          "tool_input": {
+            "specialty": "hairstylist",
+            "city": "Trichy"
+          }
+        }
+      ],
+      "reference": "Here are some hairstylists available in Trichy."
+    },
+    {
+      "query": "I like the Luxury Spa & Wellness. What kind of hair services do they offer?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider_id>",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Luxury Spa & Wellness offers various beauty and wellness services including bridal hairstyling."
+    },
+    {
+      "query": "Great! I want the bridal hairstyling service. Can you check their availability on Friday?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /providers/<provider_id>/availability",
+          "tool_input": {
+            "date": "2025-06-13"
+          }
+        }
+      ],
+      "reference": "Here are the available time slots for Friday with Luxury Spa & Wellness."
+    },
+    {
+      "query": "I have a dress trial in the morning. What are the best afternoon slots you can suggest?",
+      "expected_tool_use": [
+        {
+          "tool_name": "GET /slots/suggest",
+          "tool_input": {
+            "provider_id": "<provider_id>",
+            "service_id": "<service_id>",
+            "date": "2025-06-13"
+          }
+        }
+      ],
+      "reference": "Here are the top available afternoon slots."
+    },
+    {
+      "query": "Book the 3:30 PM slot please.",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments",
+          "tool_input": {
+            "provider_id": "<provider_id>",
+            "service_id": "<service_id>",
+            "datetime": "2025-06-13T15:30:00",
+            "notes": "Bridal hair trial before wedding"
+          }
+        }
+      ],
+      "reference": "Your bridal hairstyling appointment is booked for Friday at 3:30 PM."
+    },
+    {
+      "query": "Can I get a reminder a day before? I might be busy with other prep.",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/send-reminder",
+          "tool_input": {}
+        }
+      ],
+      "reference": "Sure! A reminder will be sent to you a day before the appointment."
+    },
+    {
+      "query": "Oh no, I need to move it to Saturday afternoon instead. Can you reschedule?",
+      "expected_tool_use": [
+        {
+          "tool_name": "POST /appointments/<appointment_id>/reschedule",
+          "tool_input": {
+            "datetime": "2025-06-14T14:00:00"
+          }
+        }
+      ],
+      "reference": "No problem. Your appointment has been rescheduled to Saturday at 2 PM."
+    },
+    {
+      "query": "Thanks! If anything changes, I’ll cancel it. But let’s keep it for now.",
+      "expected_tool_use": [],
+      "reference": "You're welcome! Let me know anytime if you'd like to modify the booking."
+    }
+  ]
+  
