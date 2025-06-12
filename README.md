@@ -32,6 +32,9 @@
 
 ![image](https://github.com/user-attachments/assets/857769c6-1bbd-45f3-80da-55dc22bdcada)
 
+![Untitled-2025-06-12-1011](https://github.com/user-attachments/assets/69334436-0433-4996-8ee0-6da2226b3d5d)
+
+
 
 ### Endpoints
 
